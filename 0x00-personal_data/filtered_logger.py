@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Regexing with function filter_datum"""
 import re
+from typing import List
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
