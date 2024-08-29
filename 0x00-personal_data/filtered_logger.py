@@ -63,3 +63,23 @@ def get_db() -> connection.MySQLConnection:
         host=host,
         database=db_name
     )
+
+
+def main() -> None:
+    """Obtains database connection and retrieve rows in users table"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    logger = get_logger()
+
+    for row in cursor:
+        row_dict = dict(zip([desc[0] for desc in cursor.description], row))
+        message = "; ".join([f"{key}={value}" for key, value in row_dict.items()])
+        logger.info(message)
+    
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
