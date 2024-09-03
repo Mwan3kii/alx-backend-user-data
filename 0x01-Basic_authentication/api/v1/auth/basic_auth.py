@@ -6,8 +6,6 @@ import base64
 from typing import Tuple, TypeVar
 from models.user import User
 
-UserType = TypeVar('User')
-
 
 class BasicAuth(Auth):
     """Basic authentication"""
@@ -49,7 +47,7 @@ class BasicAuth(Auth):
     def user_object_from_credentials(
             self,
             user_email: str,
-            user_pwd: str) -> UserType:
+            user_pwd: str) -> TypeVar('User'):
         """Returns User instance based on his email and passwd"""
         if user_email is None or not isinstance(user_email, str):
             return None
