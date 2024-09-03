@@ -44,7 +44,6 @@ def before_request():
     """Filters requests before processing them with handler"""
     if auth is None:
         return
-    
     excluded_paths = [
         '/api/v1/status/',
         '/api/v1/unauthorized/',
