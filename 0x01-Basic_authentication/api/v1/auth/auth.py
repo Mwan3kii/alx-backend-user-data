@@ -3,9 +3,11 @@
 """
 from flask import request
 from typing import List, TypeVar
+import request from flask
 
 
 class Auth:
+    """Manage Api authentication"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Returns False for now."""
         return False
