@@ -31,3 +31,10 @@ def login():
     response.set_cookie(session_name, session_id)
 
     return response
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """Handles the logout routes and deletes session"""
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
