@@ -51,7 +51,7 @@ def forbidden(error) -> str:
 def before_request():
     """Filters requests before processing them with handler"""
     if auth is None:
-        request.current_user = auth.current_user(request)
+        return
     excluded_paths = [
         '/api/v1/status/',
         '/api/v1/unauthorized/',
@@ -64,6 +64,8 @@ def before_request():
         abort(401)
     if auth.current_user(request) is None:
         abort(403)
+    if auth is not None:
+        request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
