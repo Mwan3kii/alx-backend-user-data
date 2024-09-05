@@ -4,11 +4,12 @@ from flask import jsonify, request, abort
 from models.user import User
 from api.v1.views import app_views
 from api.v1.app import auth
+from typing import Tuple
 import os
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def login():
+def login() -> Tuple[str, int]:
     """Create post route for Session Authentication"""
     email = request.form.get('email')
     password = request.form.get('password')
@@ -34,10 +35,8 @@ def login():
 
 
 @app_views.route(
-        '/auth_session/logout',
-        methods=['DELETE'],
-        strict_slashes=False)
-def logout():
+    '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout() -> Tuple[str, int]:
     """Handles the logout routes and deletes session"""
     if not auth.destroy_session(request):
         abort(404)
