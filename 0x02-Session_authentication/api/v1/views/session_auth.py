@@ -3,7 +3,7 @@
 from flask import jsonify, request, abort
 from models.user import User
 from api.v1.views import app_views
-from api.v1.app import auth
+from api.v1.auth.auth import Auth
 from typing import Tuple
 import os
 
