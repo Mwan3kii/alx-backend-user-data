@@ -3,7 +3,6 @@
 from flask import jsonify, request, abort
 from models.user import User
 from api.v1.views import app_views
-from api.v1.auth.auth import Auth
 from typing import Tuple
 import os
 
@@ -38,6 +37,7 @@ def login() -> Tuple[str, int]:
     '/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def logout() -> Tuple[str, int]:
     """Handles the logout routes and deletes session"""
+    from api.v1.app import auth
     if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
