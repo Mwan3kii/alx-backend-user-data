@@ -23,11 +23,12 @@ if AUTH_TYPE == 'basic_auth':
 elif AUTH_TYPE == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
+elif getenv("AUTH_TYPE") == "session_exp_auth":
+    from api.v1.auth.session_exp_auth import SessionExpAuth
+    auth = SessionExpAuth()
 else:
     from api.v1.auth.auth import Auth
     auth = Auth()
-if getenv("AUTH_TYPE") == "session_exp_auth":
-    auth = SessionExpAuth()
 
 
 @app.errorhandler(404)
@@ -50,7 +51,7 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """Filters requests before processing them with handler"""
     if auth:
         excluded_paths = [
