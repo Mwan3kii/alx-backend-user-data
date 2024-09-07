@@ -4,7 +4,7 @@ from models.base import Base
 
 
 class UserSession(Base):
-    """Clas iinherits from base"""
+    """Class inherits from base"""
 
     def __init__(self, *args: list, **kwargs: dict):
         """Implements lwargs and args attribute"""
