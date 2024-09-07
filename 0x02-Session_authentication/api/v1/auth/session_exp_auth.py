@@ -6,6 +6,7 @@ from api.v1.auth.session_auth import SessionAuth
 
 
 class SessionExpAuth(SessionAuth):
+    """Inherits from Session auth"""
     def __init__(self):
         """Initialize session with environment variable"""
         super().__init__()
