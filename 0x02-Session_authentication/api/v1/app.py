@@ -28,7 +28,6 @@ elif AUTH_TYPE == "session_exp_auth":
     auth = SessionExpAuth()
 else:
     print("Loading Auth...")
-    from api.v1.auth.auth import Auth
     auth = Auth()
 
 
