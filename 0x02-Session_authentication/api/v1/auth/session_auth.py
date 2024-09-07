@@ -24,10 +24,13 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None):
         """Returns User instance based on cookie value"""
-        session_cookie = self.session_cookie(request)
-        user_id = self.user_id_for_session_id(session_cookie)
-        user = User.get(user_id)
-        return user
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return None
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
+            return None
+        return User.get(user_id)
 
     def destroy_session(self, request=None):
         """Deletes user session and logs the user out"""
