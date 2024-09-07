@@ -7,7 +7,7 @@ from typing import Tuple
 import os
 
 
-@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/api/v1/auth_session/login', methods=['POST'], strict_slashes=False)
 def login() -> Tuple[str, int]:
     """Create post route for Session Authentication"""
     user_email = request.form.get('email')
