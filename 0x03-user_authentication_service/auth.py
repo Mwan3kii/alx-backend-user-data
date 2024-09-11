@@ -39,5 +39,4 @@ class Auth:
         except NoResultFound:
             return False
         except AttributeError:
-            # Handle case where user object does not have the attribute `hashed_password`
             return False
