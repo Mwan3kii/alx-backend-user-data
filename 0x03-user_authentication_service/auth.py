@@ -8,11 +8,12 @@ from user import User
 from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def _hash_password(password: str) -> bytes:
-        """Return hashed bytes hased with bcrypt"""
-        password_bytes = password.encode('utf-8')
-        hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
-        return hashed
+    """Return hashed bytes hased with bcrypt"""
+    password_bytes = password.encode('utf-8')
+    hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
+    return hashed
 
 
 class Auth:
@@ -23,6 +24,7 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
+        """Regester user with params email and passwd"""
         try:
             self._db.find_user_by(email=email)
             raise ValueError(f"User {email} already exists")
