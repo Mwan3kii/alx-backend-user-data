@@ -30,3 +30,14 @@ class Auth:
             hashed_password = self._hash_password(password)
             user = self._db.add_user(email, hashed_password.decode('utf-8'))
             return user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Check if the provided email and password are valid."""
+        try:
+            user = self._db.find_user_by(email=email)
+            return checkpw(password.encode('utf-8'), user.hashed_password)
+        except NoResultFound:
+            return False
+        except AttributeError:
+            # Handle case where user object does not have the attribute `hashed_password`
+            return False
