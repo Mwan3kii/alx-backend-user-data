@@ -43,10 +43,9 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Returns first row found in the users table"""
-        if not kwargs or any(x not in VALID_FIELDS for x in kwargs):
-            raise InvalidRequestError
-        session = self._session
         try:
             return self._session.query(User).filter_by(**kwargs).one()
-        except Exception:
+        except NoResultFound:
             raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError
