@@ -33,14 +33,12 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """
-        Takes params and returns a user object
-        """
+        """Takes params and returns a user object"""
         if not email or not hashed_password:
             return
         user = User(email=email, hashed_password=hashed_password)
-        session.add(user)
-        session.commit()
+        self._session.add(user)
+        self._session.commit()
         return user
 
     def find_user_by(self, **kwargs) -> User:
@@ -49,5 +47,5 @@ class DB:
             raise InvalidRequestError
         session = self._session
         try:
-            return self._session.query(User).filter_by(**kwargs).first_or_404()
+            return self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
