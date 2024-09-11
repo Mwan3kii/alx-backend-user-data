@@ -8,6 +8,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from typing import TypeVar
 from user import Base, User
+
 VALID_FIELDS = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
 
 
@@ -38,8 +39,8 @@ class DB:
         if not email or not hashed_password:
             return
         user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
+        session.add(user)
+        session.commit()
         return user
 
     def find_user_by(self, **kwargs) -> User:
