@@ -6,8 +6,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-
+from typing import TypeVar
 from user import Base, User
+VALID_FIELDS = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
 
 
 class DB:
@@ -43,6 +44,9 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Returns first row found in the users table"""
+        if not kwargs or any(x not in VALID_FIELDS for x in kwargs):
+            raise InvalidRequestError
+        session = self._session
         try:
             return self._session.query(User).filter_by(**kwargs).first_or_404()
         except NoResultFound:
