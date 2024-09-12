@@ -10,8 +10,7 @@ BASE_URL = "http://0.0.0.0:5000"
 
 
 def register_user(email: str, password: str) -> None:
-    """Tests registering a user.
-    """
+    """Registering a user"""
     url = "{}/users".format(BASE_URL)
     body = {
         'email': email,
@@ -26,8 +25,7 @@ def register_user(email: str, password: str) -> None:
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
-    """Tests logging in with a wrong password.
-    """
+    """logging in incase of wrong password"""
     url = "{}/sessions".format(BASE_URL)
     body = {
         'email': email,
@@ -38,8 +36,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
 
 
 def log_in(email: str, password: str) -> str:
-    """Tests logging in.
-    """
+    """Does testing logging in"""
     url = "{}/sessions".format(BASE_URL)
     body = {
         'email': email,
@@ -60,32 +57,29 @@ def profile_unlogged() -> None:
 
 
 def profile_logged(session_id: str) -> None:
-    """Tests retrieving profile information whilst logged in.
-    """
+    """Logging profile information whilst logged in"""
     url = "{}/profile".format(BASE_URL)
-    req_cookies = {
+    request_cookies = {
         'session_id': session_id,
     }
-    res = requests.get(url, cookies=req_cookies)
+    res = requests.get(url, cookies=request_cookies)
     assert res.status_code == 200
     assert "email" in res.json()
 
 
 def log_out(session_id: str) -> None:
-    """Tests logging out of a session.
-    """
+    """Logging out of a session"""
     url = "{}/sessions".format(BASE_URL)
-    req_cookies = {
+    request_cookies = {
         'session_id': session_id,
     }
-    res = requests.delete(url, cookies=req_cookies)
+    res = requests.delete(url, cookies=request_cookies)
     assert res.status_code == 200
     assert res.json() == {"message": "Bienvenue"}
 
 
 def reset_password_token(email: str) -> str:
-    """Tests requesting a password reset.
-    """
+    """Requesting a password token reset"""
     url = "{}/reset_password".format(BASE_URL)
     body = {'email': email}
     res = requests.post(url, data=body)
