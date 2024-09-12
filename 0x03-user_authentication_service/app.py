@@ -47,13 +47,12 @@ def login() -> str:
 def logout():
     """Logouts user and destroy the session"""
     session_id = request.cookies.get('session_id')
-    if not session_id:
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+    else:
         abort(403)
-    user = auth.get_user_from_session_id(session_id)
-    if not user:
-        abort(403)
-    auth.destroy_session(user.id)
-    return redirect('/')
 
 
 if __name__ == "__main__":
