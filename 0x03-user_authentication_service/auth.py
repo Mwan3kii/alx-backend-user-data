@@ -64,3 +64,12 @@ class Auth:
             return user.email
         except NoResultFound:
             return
+
+    def destroy_session(self, user_id: int) -> None:
+        """Destroys session of user by setting their session_id to None"""
+        try:
+            user = self._db.find_user_by(id=user_id)
+            self._db.update_user(user.id, session_id=None)
+        except Exception as e:
+            pass
+        return None
