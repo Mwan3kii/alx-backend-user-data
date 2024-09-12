@@ -75,4 +75,3 @@ class Auth:
         except Exception as e:
             pass
         return None
-
