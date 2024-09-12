@@ -73,3 +73,16 @@ class Auth:
         except Exception as e:
             pass
         return None
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """Logouts user and destroy the session"""
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(403)
+    user = auth.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    auth.destroy_session(user.id)
+    return redirect('/')
