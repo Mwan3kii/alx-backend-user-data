@@ -8,7 +8,6 @@ from user import User
 from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
 import uuid
-from typing import Optional
 
 
 def _hash_password(password: str) -> bytes:
