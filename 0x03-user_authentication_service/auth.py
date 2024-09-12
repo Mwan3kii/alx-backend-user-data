@@ -56,14 +56,12 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(
-            self, session_id: Optional[str]) -> Optional[User]:
+    def get_user_from_session_id(self, session_id: str) -> str:
         """Returns the User corresponding to a given session_id"""
         if session_id is None:
-            return None
+            return
         try:
             user = self._db.find_user_by(session_id=session_id)
-        except Exception:
-            return None
-
-        return user
+            return user.email
+        except NoResultFound:
+            return
