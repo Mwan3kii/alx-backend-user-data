@@ -25,8 +25,9 @@ def users() -> str:
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
+
 @app.route('/sessions', methods=['POST'])
-def login():
+def login() -> str:
     """POST /sessions route to handle login"""
     # Get email and password from form data
     email = request.form.get('email')
